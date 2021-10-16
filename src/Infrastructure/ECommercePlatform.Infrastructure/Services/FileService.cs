@@ -18,7 +18,7 @@ namespace ECommercePlatform.Infrastructure.Services
                 var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
                 using var streamReader = new StreamReader(fileStream, Encoding.UTF8);
                 string line;
-                
+
                 while ((line = await streamReader.ReadLineAsync()) != null)
                 {
                     list.Add(line);
@@ -26,14 +26,8 @@ namespace ECommercePlatform.Infrastructure.Services
 
                 return list;
             }
-            catch (FileNotFoundException)
+            catch
             {
-                Console.WriteLine("File not found ! Check file path...");
-                return list;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
                 return list;
             }
         }

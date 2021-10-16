@@ -68,15 +68,20 @@ namespace ECommercePlatform.Infrastructure.Services
 
         public decimal CalculateCampaignProductPrice(decimal price, decimal manipulationLimit, int duration, DateTime campaignStartedDate)
         {
+            //Kampanyalar gece 00:00 da başladığı için satın alma potansiyeli yüksek olan saatler kampanyanın ilk saatlerine denk gelmektedir. 
+            //Bu yüzden daha fazla ürün satılması için indirim oranı maksimumla başlayıp zamanla orantılı olarak azalan bir algoritma tercih edilmiştir.
+
             var discountedHours = _timeManagementService.DiscountedHours(campaignStartedDate);
 
             var discountRatio = (price * manipulationLimit) / 100;
 
-            var decreaseLimit = discountRatio / duration;
+            var maxCampaignPrice = price - discountRatio;
 
-            var discountPrice = decreaseLimit * discountedHours;
+            var increaseLimit = discountRatio / duration;
 
-            return price - discountPrice;
+            var discountPrice = increaseLimit * discountedHours;
+
+            return maxCampaignPrice + discountPrice;
         }
 
         public async Task<Product> DecreaseStock(Product model, int quantity)
