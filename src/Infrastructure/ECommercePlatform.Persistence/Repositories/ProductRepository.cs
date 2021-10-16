@@ -14,7 +14,7 @@ namespace ECommercePlatform.Persistence.Repositories
 
         public async Task<Product> GetByProductCodeAsync(string productCode)
         {
-            return await Context.Set<Product>().FirstOrDefaultAsync(x => x.Code == productCode);
+            return await Context.Products.FirstOrDefaultAsync(x => x.Code == productCode);
         }
     }
 }

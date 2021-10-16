@@ -3,7 +3,7 @@ using MediatR;
 
 namespace ECommercePlatform.Application.DTOs.Requests
 {
-    public class IncreaseTimeRequest : IRequest<Result>
+    public class IncreaseTimeRequest : IRequest<CommandResult>
     {
         public int Hour { get; set; }
     }

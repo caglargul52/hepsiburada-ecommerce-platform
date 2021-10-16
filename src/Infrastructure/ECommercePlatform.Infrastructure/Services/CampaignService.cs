@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using ECommercePlatform.Application.DTOs;
 using ECommercePlatform.Application.DTOs.Requests;
 using ECommercePlatform.Application.DTOs.Responses;
 using ECommercePlatform.Application.Exceptions;

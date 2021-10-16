@@ -14,12 +14,12 @@ namespace ECommercePlatform.Persistence.Repositories
 
         public async Task<Campaign> GetByProductCodeAsync(string productCode)
         {
-            return await Context.Set<Campaign>().FirstOrDefaultAsync(x => x.ProductCode == productCode);
+            return await Context.Campaigns.FirstOrDefaultAsync(x => x.ProductCode == productCode);
         }
 
         public async Task<Campaign> GetByNameAsync(string campaignName)
         {
-            return await Context.Set<Campaign>().FirstOrDefaultAsync(x => x.Name == campaignName);
+            return await Context.Campaigns.FirstOrDefaultAsync(x => x.Name == campaignName);
         }
     }
 }

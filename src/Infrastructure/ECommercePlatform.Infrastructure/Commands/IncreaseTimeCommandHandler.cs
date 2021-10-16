@@ -7,7 +7,7 @@ using MediatR;
 
 namespace ECommercePlatform.Infrastructure.Commands
 {
-    public class IncreaseTimeCommandHandler : IRequestHandler<IncreaseTimeRequest, Result>
+    public class IncreaseTimeCommandHandler : IRequestHandler<IncreaseTimeRequest, CommandResult>
     {
         private readonly ITimeManagementService _timeManagementService;
 
@@ -16,17 +16,17 @@ namespace ECommercePlatform.Infrastructure.Commands
             _timeManagementService = timeManagementService;
         }
 
-        public Task<Result> Handle(IncreaseTimeRequest request, CancellationToken cancellationToken)
+        public Task<CommandResult> Handle(IncreaseTimeRequest request, CancellationToken cancellationToken)
         {
-            Result result = new Result();
+            CommandResult commandResult = new CommandResult();
 
             var dateTime = _timeManagementService.IncreaseTime(request.Hour);
 
-            result.IsSuccess = true;
+            commandResult.IsSuccess = true;
 
-            result.Message = $"Time is {dateTime.ToShortTimeString()}";
+            commandResult.Message = $"Time is {dateTime.ToShortTimeString()}";
 
-            return Task.FromResult(result);
+            return Task.FromResult(commandResult);
         }
     }
 }

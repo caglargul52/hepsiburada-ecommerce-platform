@@ -5,6 +5,6 @@ namespace ECommercePlatform.Application.Interfaces.Services
 {
     public interface ICommandParserService
     {
-        IRequest<Result> ConvertCommand(string command);
+        IRequest<CommandResult> ConvertCommand(string command);
     }
 }

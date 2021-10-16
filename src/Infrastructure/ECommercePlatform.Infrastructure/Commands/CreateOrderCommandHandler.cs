@@ -8,7 +8,7 @@ using MediatR;
 
 namespace ECommercePlatform.Infrastructure.Commands
 {
-    public class CreateOrderCommandHandler : IRequestHandler<CreateOrderRequest, Result>
+    public class CreateOrderCommandHandler : IRequestHandler<CreateOrderRequest, CommandResult>
     {
         private readonly IOrderService _orderService;
 
@@ -17,24 +17,24 @@ namespace ECommercePlatform.Infrastructure.Commands
             _orderService = orderService;
         }
 
-        public async Task<Result> Handle(CreateOrderRequest request, CancellationToken cancellationToken)
+        public async Task<CommandResult> Handle(CreateOrderRequest request, CancellationToken cancellationToken)
         {
-            Result result = new Result();
+            CommandResult commandResult = new CommandResult();
 
             try
             {
                 var order = await _orderService.CreateOrder(request);
 
-                result.IsSuccess = true;
-                result.Message = order.ToString();
+                commandResult.IsSuccess = true;
+                commandResult.Message = order.ToString();
             }
             catch (Exception e)
             {
-                result.IsSuccess = false;
-                result.Message = e.Message;
+                commandResult.IsSuccess = false;
+                commandResult.Message = e.Message;
             }
 
-            return result;
+            return commandResult;
         }
     }
 }

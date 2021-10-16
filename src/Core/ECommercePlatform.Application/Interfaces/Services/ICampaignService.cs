@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using ECommercePlatform.Application.DTOs;
 using ECommercePlatform.Application.DTOs.Requests;
 using ECommercePlatform.Application.DTOs.Responses;
 using ECommercePlatform.Domain.Entities;

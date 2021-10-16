@@ -3,7 +3,7 @@ using MediatR;
 
 namespace ECommercePlatform.Application.DTOs.Requests
 {
-    public class CreateProductRequest : IRequest<Result>
+    public class CreateProductRequest : IRequest<CommandResult>
     {
         public string Code { get; set; }
         public decimal Price { get; set; }

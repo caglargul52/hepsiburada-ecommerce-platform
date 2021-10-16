@@ -9,7 +9,7 @@ namespace ECommercePlatform.Infrastructure.Services
 {
     public class CommandParserService : ICommandParserService
     {
-        public IRequest<Result> ConvertCommand(string command)
+        public IRequest<CommandResult> ConvertCommand(string command)
         {
             if (string.IsNullOrEmpty(command)) return null;
 
@@ -29,7 +29,7 @@ namespace ECommercePlatform.Infrastructure.Services
             };
         }
 
-        private IRequest<Result> PrepareCreateProductDto(string[] splittedCommand)
+        private IRequest<CommandResult> PrepareCreateProductDto(string[] splittedCommand)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace ECommercePlatform.Infrastructure.Services
             }
         }
 
-        private IRequest<Result> PrepareCreateCampaignDto(string[] splittedCommand)
+        private IRequest<CommandResult> PrepareCreateCampaignDto(string[] splittedCommand)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace ECommercePlatform.Infrastructure.Services
             }
         }
 
-        private IRequest<Result> PrepareCreateOrderDto(string[] splittedCommand)
+        private IRequest<CommandResult> PrepareCreateOrderDto(string[] splittedCommand)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace ECommercePlatform.Infrastructure.Services
             }
         }
 
-        private IRequest<Result> PrepareGetProductDto(string[] splittedCommand)
+        private IRequest<CommandResult> PrepareGetProductDto(string[] splittedCommand)
         {
             try
             {
@@ -96,7 +96,7 @@ namespace ECommercePlatform.Infrastructure.Services
             }
         }
 
-        private IRequest<Result> PrepareGetCampaignDto(string[] splittedCommand)
+        private IRequest<CommandResult> PrepareGetCampaignDto(string[] splittedCommand)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace ECommercePlatform.Infrastructure.Services
             }
         }
 
-        private IRequest<Result> PrepareTimeIncrease(string[] splittedCommand)
+        private IRequest<CommandResult> PrepareTimeIncrease(string[] splittedCommand)
         {
             try
             {

@@ -3,7 +3,7 @@ using MediatR;
 
 namespace ECommercePlatform.Application.DTOs.Requests
 {
-    public class GetCampaignRequest : IRequest<Result>
+    public class GetCampaignRequest : IRequest<CommandResult>
     {
         public string Name { get; set; }
     }

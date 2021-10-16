@@ -8,7 +8,7 @@ using MediatR;
 
 namespace ECommercePlatform.Infrastructure.Commands
 {
-    public class GetCampaignCommandHandler : IRequestHandler<GetCampaignRequest, Result>
+    public class GetCampaignCommandHandler : IRequestHandler<GetCampaignRequest, CommandResult>
     {
         private readonly ICampaignService _campaignService;
 
@@ -17,24 +17,24 @@ namespace ECommercePlatform.Infrastructure.Commands
             _campaignService = campaignService;
         }
 
-        public async Task<Result> Handle(GetCampaignRequest request, CancellationToken cancellationToken)
+        public async Task<CommandResult> Handle(GetCampaignRequest request, CancellationToken cancellationToken)
         {
-            Result result = new Result();
+            CommandResult commandResult = new CommandResult();
 
             try
             {
                 var campaign = await _campaignService.GetCampaign(request);
 
-                result.IsSuccess = true;
-                result.Message = campaign.ToString();
+                commandResult.IsSuccess = true;
+                commandResult.Message = campaign.ToString();
             }
             catch (Exception e)
             {
-                result.IsSuccess = false;
-                result.Message = e.Message;
+                commandResult.IsSuccess = false;
+                commandResult.Message = e.Message;
             }
 
-            return result;
+            return commandResult;
         }
     }
 }
