@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
-using ECommercePlatform.Application.Services;
+using ECommercePlatform.Application.Interfaces.Services;
+using ECommercePlatform.Infrastructure.Services;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ECommercePlatform.Infrastructure
@@ -10,7 +12,13 @@ namespace ECommercePlatform.Infrastructure
         {
             return serviceCollection
                 .AddTransient<IProductService, ProductService>()
-                .AddAutoMapper(Assembly.GetExecutingAssembly());
+                .AddTransient<ICampaignService, CampaignService>()
+                .AddTransient<IOrderService, OrderService>()
+                .AddSingleton<ITimeManagementService, TimeManagementService>()
+                .AddTransient<ICommandParserService, CommandParserService>()
+                .AddTransient<IFileService, FileService>()
+                .AddAutoMapper(Assembly.GetExecutingAssembly())
+                .AddMediatR(Assembly.GetExecutingAssembly());
         }
     }
 }

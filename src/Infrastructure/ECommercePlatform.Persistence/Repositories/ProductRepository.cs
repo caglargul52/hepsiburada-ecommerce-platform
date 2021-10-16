@@ -2,6 +2,7 @@
 using ECommercePlatform.Application.Interfaces.Repositories;
 using ECommercePlatform.Domain.Entities;
 using ECommercePlatform.Persistence.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommercePlatform.Persistence.Repositories
 {
@@ -9,6 +10,11 @@ namespace ECommercePlatform.Persistence.Repositories
     {
         public ProductRepository(ApplicationContext context) : base(context)
         {
+        }
+
+        public async Task<Product> GetByProductCodeAsync(string productCode)
+        {
+            return await Context.Set<Product>().FirstOrDefaultAsync(x => x.Code == productCode);
         }
     }
 }

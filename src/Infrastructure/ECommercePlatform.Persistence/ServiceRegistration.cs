@@ -11,7 +11,9 @@ namespace ECommercePlatform.Persistence
         {
             return serviceCollection
                 .AddDbContext<ApplicationContext>()
-                .AddTransient<IProductRepository, ProductRepository>();
+                .AddTransient<IProductRepository, ProductRepository>()
+                .AddTransient<ICampaignRepository, CampaignRepository>()
+                .AddTransient<IOrderRepository, OrderRepository>();
         }
     }
 }

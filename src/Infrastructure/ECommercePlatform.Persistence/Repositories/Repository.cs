@@ -12,40 +12,44 @@ namespace ECommercePlatform.Persistence.Repositories
 {
     public class Repository<T> : IRepository<T> where T : BaseEntity, new()
     {
-        private readonly ApplicationContext _context;
+        public ApplicationContext Context { get; }
 
         public Repository(ApplicationContext context)
         {
-            _context = context;
+            Context = context;
         }
 
         public async Task<List<T>> GetAllAsync()
         {
-            return await _context.Set<T>().ToListAsync();
+            return await Context.Set<T>().AsNoTracking().ToListAsync();
         }
 
-        public async Task<bool> AddAsync(T entity)
+        public async Task<T> AddAsync(T entity)
         {
-            try
-            {
-                await _context.Set<T>().AddAsync(entity);
+            await Context.Set<T>().AddAsync(entity);
 
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            await Context.SaveChangesAsync();
+
+            return entity;
         }
 
-        public async Task<T> GetById(Guid id)
+        public async Task<T> UpdateAsync(T entity)
         {
-            return await _context.Set<T>().FindAsync(id);
+            Context.Set<T>().Update(entity);
+
+            await Context.SaveChangesAsync();
+
+            return entity;
         }
 
-        public async Task<List<T>> Where(Expression<Func<T, bool>> expression)
+        public async Task<T> GetByIdAsync(Guid id)
         {
-            return await _context.Set<T>().Where(expression).ToListAsync();
+            return await Context.Set<T>().FindAsync(id);
+        }
+
+        public async Task<List<T>> WhereAsync(Expression<Func<T, bool>> expression)
+        {
+            return await Context.Set<T>().AsNoTracking().Where(expression).ToListAsync();
         }
     }
 }

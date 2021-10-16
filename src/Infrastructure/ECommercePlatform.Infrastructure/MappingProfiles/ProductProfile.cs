@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using ECommercePlatform.Application.DTOs;
+using ECommercePlatform.Application.DTOs.Requests;
+using ECommercePlatform.Application.DTOs.Responses;
 using ECommercePlatform.Domain.Entities;
 
 namespace ECommercePlatform.Infrastructure.MappingProfiles
@@ -8,9 +9,11 @@ namespace ECommercePlatform.Infrastructure.MappingProfiles
     {
         public ProductProfile()
         {
-            CreateMap<Product, ProductResponseDto>().ReverseMap();
+            CreateMap<Product, CreateProductRequest>().ReverseMap();
 
-            CreateMap<Product, ProductRequestDto>().ReverseMap();
+            CreateMap<Product, CreateProductResponse>().ReverseMap();
+
+            CreateMap<Product, GetProductResponse>().ReverseMap();
         }
     }
 }
