@@ -15,13 +15,15 @@ namespace ECommercePlatform.Infrastructure.Services
     {
         private readonly IMapper _mapper;
         private readonly ICampaignRepository _campaignRepository;
+        private readonly IProductRepository _productRepository;
         private readonly IOrderRepository _orderRepository;
         private readonly ITimeManagementService _timeManagementService;
 
-        public CampaignService(IMapper mapper, ICampaignRepository campaignRepository, IOrderRepository orderRepository, ITimeManagementService timeManagementService)
+        public CampaignService(IMapper mapper, ICampaignRepository campaignRepository, IProductRepository productRepository, IOrderRepository orderRepository, ITimeManagementService timeManagementService)
         {
             _mapper = mapper;
             _campaignRepository = campaignRepository;
+            _productRepository = productRepository;
             _orderRepository = orderRepository;
             _timeManagementService = timeManagementService;
         }
@@ -30,6 +32,11 @@ namespace ECommercePlatform.Infrastructure.Services
         {
             if (model is null)
                 throw new NullReferenceException("Invalid parameter!");
+
+            var product = await _productRepository.GetByProductCodeAsync(model.ProductCode);
+
+            if (product is null)
+                throw new NotFoundException("Product is not found!");
 
             //Todo:FluentValidation kulanılarak Dtonun parametreleri validasyon yapılabilir.
 
