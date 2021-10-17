@@ -26,19 +26,19 @@ namespace ECommercePlatform.Infrastructure.Services
             _campaignService = campaignService;
         }
 
-        public async Task<CreateOrderResponse> CreateOrder(CreateOrderRequest model)
+        public async Task<CreateOrderResponse> CreateOrderAsync(CreateOrderRequest model)
         {
             if (model is null)
                 throw new NullReferenceException("Invalid parameter!");
 
-            var product = await _productService.GetProductByCode(model.ProductCode);
+            var product = await _productService.GetProductByCodeAsync(model.ProductCode);
 
             if (product is null)
                 throw new NotFoundException("Product is not found!");
 
             //Todo:FluentValidation kulanılarak Dtonun parametreleri validasyon yapılabilir.
 
-            product = await _productService.DecreaseStock(product, model.Quantity);
+            product = await _productService.DecreaseStockAsync(product, model.Quantity);
 
             var order = _mapper.Map<Order>(model);
 
@@ -47,7 +47,7 @@ namespace ECommercePlatform.Infrastructure.Services
             if (campaign is null) 
                 return await AddOrder(order);
 
-            var campaignIsValid = _campaignService.IsCampaignActive(campaign);
+            var campaignIsValid = _campaignService.IsCampaignActiveAsync(campaign);
 
             if (campaignIsValid && campaign.RemainingTarget > model.Quantity)
             {
@@ -55,7 +55,7 @@ namespace ECommercePlatform.Infrastructure.Services
 
                 order.CampaignName = campaign.Name;
                 
-                _ = _campaignService.DecreaseRemainingTarget(campaign, model.Quantity);
+                _ = _campaignService.DecreaseRemainingTargetAsync(campaign, model.Quantity);
             }
 
             order.Price = product.CampaignPrice * model.Quantity;

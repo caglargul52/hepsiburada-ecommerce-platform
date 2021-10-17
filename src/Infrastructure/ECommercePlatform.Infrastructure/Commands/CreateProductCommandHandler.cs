@@ -23,7 +23,7 @@ namespace ECommercePlatform.Infrastructure.Commands
 
             try
             {
-                var product = await _productService.CreateProduct(request);
+                var product = await _productService.CreateProductAsync(request);
 
                 commandResult.IsSuccess = true;
                 commandResult.Message = product.ToString();

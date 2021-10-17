@@ -23,7 +23,7 @@ namespace ECommercePlatform.Infrastructure.Commands
 
             try
             {
-                var order = await _orderService.CreateOrder(request);
+                var order = await _orderService.CreateOrderAsync(request);
 
                 commandResult.IsSuccess = true;
                 commandResult.Message = order.ToString();

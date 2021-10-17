@@ -6,6 +6,6 @@ namespace ECommercePlatform.Application.Interfaces.Services
 {
     public interface IOrderService
     {
-        Task<CreateOrderResponse> CreateOrder(CreateOrderRequest model);
+        Task<CreateOrderResponse> CreateOrderAsync(CreateOrderRequest model);
     }
 }

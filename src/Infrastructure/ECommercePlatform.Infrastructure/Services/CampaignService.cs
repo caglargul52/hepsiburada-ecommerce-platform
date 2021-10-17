@@ -26,7 +26,7 @@ namespace ECommercePlatform.Infrastructure.Services
             _timeManagementService = timeManagementService;
         }
 
-        public async Task<CreateCampaignResponse> CreateCampaign(CreateCampaignRequest model)
+        public async Task<CreateCampaignResponse> CreateCampaignAsync(CreateCampaignRequest model)
         {
             if (model is null)
                 throw new NullReferenceException("Invalid parameter!");
@@ -44,7 +44,7 @@ namespace ECommercePlatform.Infrastructure.Services
             return _mapper.Map<CreateCampaignResponse>(addedCampaign);
         }
 
-        public async Task<GetCampaignResponse> GetCampaign(GetCampaignRequest model)
+        public async Task<GetCampaignResponse> GetCampaignAsync(GetCampaignRequest model)
         {
             if (model is null)
                 throw new NullReferenceException("Invalid parameter!");
@@ -65,7 +65,7 @@ namespace ECommercePlatform.Infrastructure.Services
             var response = new GetCampaignResponse
             {
                 Name = campaign.Name,
-                IsActive = IsCampaignActive(campaign) && totalOrderCount < campaign.TargetSalesCount,
+                IsActive = IsCampaignActiveAsync(campaign) && totalOrderCount < campaign.TargetSalesCount,
                 TotalSalesCount = totalOrderCount,
                 TargetSalesCount = campaign.TargetSalesCount,
                 AvarageItemPrice = totalOrderCount > 0 ? sumPrice / totalOrderCount : 0,
@@ -75,7 +75,7 @@ namespace ECommercePlatform.Infrastructure.Services
             return response;
         }
 
-        public async Task<Campaign> GetCampaignByName(string campaignName)
+        public async Task<Campaign> GetCampaignByNameAsync(string campaignName)
         {
             return await _campaignRepository.GetByNameAsync(campaignName);
         }
@@ -85,7 +85,7 @@ namespace ECommercePlatform.Infrastructure.Services
             return await _campaignRepository.GetByProductCodeAsync(productCode);
         }
 
-        public bool IsCampaignActive(Campaign campaign)
+        public bool IsCampaignActiveAsync(Campaign campaign)
         {
             var dateTimeNow = _timeManagementService.GetDate();
 
@@ -97,7 +97,7 @@ namespace ECommercePlatform.Infrastructure.Services
             return false;
         }
 
-        public async Task<Campaign> DecreaseRemainingTarget(Campaign campaign, int quantity)
+        public async Task<Campaign> DecreaseRemainingTargetAsync(Campaign campaign, int quantity)
         {
             campaign.RemainingTarget -= quantity;
 

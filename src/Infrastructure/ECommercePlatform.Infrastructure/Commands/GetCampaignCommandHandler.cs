@@ -23,7 +23,7 @@ namespace ECommercePlatform.Infrastructure.Commands
 
             try
             {
-                var campaign = await _campaignService.GetCampaign(request);
+                var campaign = await _campaignService.GetCampaignAsync(request);
 
                 commandResult.IsSuccess = true;
                 commandResult.Message = campaign.ToString();

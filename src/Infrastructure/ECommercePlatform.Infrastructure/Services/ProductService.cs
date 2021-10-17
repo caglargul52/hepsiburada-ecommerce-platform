@@ -24,7 +24,7 @@ namespace ECommercePlatform.Infrastructure.Services
             _timeManagementService = timeManagementService;
         }
 
-        public async Task<CreateProductResponse> CreateProduct(CreateProductRequest model)
+        public async Task<CreateProductResponse> CreateProductAsync(CreateProductRequest model)
         {
             if (model is null)
                 throw new NullReferenceException("Invalid parameter!");
@@ -40,7 +40,7 @@ namespace ECommercePlatform.Infrastructure.Services
             return _mapper.Map<CreateProductResponse>(addedProduct);
         }
 
-        public async Task<GetProductResponse> GetProduct(GetProductRequest model)
+        public async Task<GetProductResponse> GetProductAsync(GetProductRequest model)
         {
             var product = await _productRepository.GetByProductCodeAsync(model.Code);
 
@@ -54,14 +54,14 @@ namespace ECommercePlatform.Infrastructure.Services
             if (campaign is null)
                 return _mapper.Map<GetProductResponse>(product);
 
-            if (_campaignService.IsCampaignActive(campaign) && campaign.RemainingTarget > 0)
+            if (_campaignService.IsCampaignActiveAsync(campaign) && campaign.RemainingTarget > 0)
                 product.CampaignPrice = CalculateCampaignProductPrice(product.Price, campaign.ManipulationLimit, campaign.Duration, campaign.StartDate);
             
 
             return _mapper.Map<GetProductResponse>(product);
         }
 
-        public async Task<Product> GetProductByCode(string productCode)
+        public async Task<Product> GetProductByCodeAsync(string productCode)
         {
             return await _productRepository.GetByProductCodeAsync(productCode);
         }
@@ -84,7 +84,7 @@ namespace ECommercePlatform.Infrastructure.Services
             return maxCampaignPrice + discountPrice;
         }
 
-        public async Task<Product> DecreaseStock(Product model, int quantity)
+        public async Task<Product> DecreaseStockAsync(Product model, int quantity)
         {
             model.Stock -= quantity;
 
