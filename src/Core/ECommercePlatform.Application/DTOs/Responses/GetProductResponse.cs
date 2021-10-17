@@ -8,7 +8,7 @@
 
         public override string ToString()
         {
-            return $"Product {Code} info: price {CampaignPrice} stock {Stock}";
+            return $"Product {Code} info; price {CampaignPrice} stock {Stock}";
         }
     }
 }
